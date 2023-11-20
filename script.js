@@ -14,15 +14,16 @@ async function getCoordinates(cityName){
     
     try{
         const response = await fetch(apiURL);
-        const coordinates = await response.json();
-        console.log("in function", coordinates)
+        const responseJSON = await response.json();
+        const lat = responseJSON["location"]["lat"];
+        const lon = responseJSON["location"]["lon"];
+        const coordinates = [lat, lon];
         return coordinates
     }catch(error){
         console.error(error)
         return alert("Hey are you sure you are not holding up your map upside down?")
-    }
-
-} 
+    };
+};
 
 
 // add eventlistener to input field
