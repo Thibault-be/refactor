@@ -22,6 +22,15 @@ async function getWeatherData(cityName){
     };
 };
 
+function removeContainerChildren(){
+
+    const container = document.querySelector(".container");
+    console.log(container)
+    container.replaceChildren();
+
+
+}
+
 
 // add eventlistener to input field
 inputField.addEventListener('keyup', async function(event) {
@@ -34,8 +43,12 @@ inputField.addEventListener('keyup', async function(event) {
         const cityName = getCityName();
 
         if (cityName !== ""){
-        const weatherData = await getWeatherData(cityName)
-        console.log("main", weatherData)
+        const weatherData = await getWeatherData(cityName);
+        console.log("main", weatherData);
+
+        removeContainerChildren();
+
+
         
         // Make the api call to get the weather Data based on the City
         //fetch("http://api.weatherapi.com/v1/forecast.json?key=" + apiKey.key + "&q=" + cityName + "&days=7&aqi=no&alerts=no")
