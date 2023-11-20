@@ -19,10 +19,9 @@ inputField.addEventListener('keyup', function(event) {
     if (event.code === "Enter") {
 
         const cityName = getCityName();
-        console.log(cityName);
 
         // check if the value of the input field is not empty
-    if (document.getElementById('cityName').value.trim()) {
+    if (cityName !== ""){
         // Make the api call to get the weather Data based on the City
         fetch("http://api.weatherapi.com/v1/forecast.json?key=" + API.key + "&q=" + cityName + "&days=7&aqi=no&alerts=no")
         // Transform the response in a readable javascript format
