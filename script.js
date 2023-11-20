@@ -4,6 +4,7 @@ const button = document.querySelector('#submit-search');
 const inputField = document.querySelector('#cityName');
 const cityNameContainer = document.querySelector('.city-info')
 const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const container = document.querySelector(".container");
 
 function getCityName(){
     return inputField.value
@@ -23,16 +24,17 @@ async function getWeatherData(cityName){
 };
 
 function removeContainerChildren(){
-    const container = document.querySelector(".container");
-    console.log(container)
     container.replaceChildren();
 }
 
 function displayLocation(weatherData){
     const city = weatherData["location"]["name"];
     const country = weatherData["location"]["country"];
-
     cityNameContainer.textContent = `${city}, ${country}`
+}
+
+function createWeatherCards(weatherData){
+
 }
 
 
@@ -47,51 +49,15 @@ inputField.addEventListener('keyup', async function(event) {
         const cityName = getCityName();
 
         if (cityName !== ""){
-        const weatherData = await getWeatherData(cityName);
-        console.log("main", weatherData);
+            const weatherData = await getWeatherData(cityName);
+            console.log("main", weatherData);
 
-        removeContainerChildren();
-        displayLocation(weatherData)
-
-        //Display the location in the browser as "City, Country"
-         //        cityNameContainer.textContent = data.location.name + ", " + data.location.country;
-        
-
-
-        
-        // Make the api call to get the weather Data based on the City
-        //fetch("http://api.weatherapi.com/v1/forecast.json?key=" + apiKey.key + "&q=" + cityName + "&days=7&aqi=no&alerts=no")
-        // Transform the response in a readable javascript format
-        //.then(response => response.json())
-        // final formatted data from the API call
-        //.then(data => {
-            // Check if data is received
-            //console.log(data)
+            removeContainerChildren();
+            displayLocation(weatherData);
+            createWeatherCards(weatherData);
         }
     }
 })
-            // check if the data is not giving back an error
-            //if(data.error) {
-                // stop the event from continuing the code if there is an error
-                //return alert("Hey are you sure you are not holding up your map upside down?")
-                //console.log("check if code stops")
-            //} else {
-                // continue with the code if there are no errors
-                //const container = document.querySelector(".container");
-                // Remove existing children if there are any in the <element class="container">
-                //while (container.lastChild) {
-                //    container.removeChild(container.lastChild);
-                //};
-                
-                // I also found this option to remove the children (but it removes all html content though)
-                //container.innerHTML = ""
-
-                // container.children.forEach(child => {
-                //     container.remove(child);
-                // })
-                
-//                 // Display the location in the browser as "City, Country"
-//                 cityNameContainer.textContent = data.location.name + ", " + data.location.country;
 
 //                 // Create cards for each days (first 5 days) of the week.
 //                 // if I want to have 7 days, I just need to augment the number in the loop condition from 5 to 7
