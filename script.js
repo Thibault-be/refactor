@@ -15,10 +15,11 @@ inputField.addEventListener('keyup', function(event) {
     // get the current value after the user submitted the city name
     // const cityName = document.querySelector("#cityName").value;
 
-    const cityName = getCityName();
-
     // check if the keyup action is used on an Enter key
     if (event.code === "Enter") {
+
+        const cityName = getCityName();
+        console.log(cityName);
 
         // check if the value of the input field is not empty
     if (document.getElementById('cityName').value.trim()) {
