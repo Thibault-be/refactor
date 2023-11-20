@@ -23,12 +23,16 @@ async function getWeatherData(cityName){
 };
 
 function removeContainerChildren(){
-
     const container = document.querySelector(".container");
     console.log(container)
     container.replaceChildren();
+}
 
+function displayLocation(weatherData){
+    const city = weatherData["location"]["name"];
+    const country = weatherData["location"]["country"];
 
+    cityNameContainer.textContent = `${city}, ${country}`
 }
 
 
@@ -47,6 +51,11 @@ inputField.addEventListener('keyup', async function(event) {
         console.log("main", weatherData);
 
         removeContainerChildren();
+        displayLocation(weatherData)
+
+        //Display the location in the browser as "City, Country"
+         //        cityNameContainer.textContent = data.location.name + ", " + data.location.country;
+        
 
 
         
