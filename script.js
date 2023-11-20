@@ -9,16 +9,13 @@ function getCityName(){
     return inputField.value
 }
 
-async function getCoordinates(cityName){
+async function getWeatherData(cityName){
     const apiURL = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey.key}&q=${cityName}&days=7&aqi=no&alerts=no`
     
     try{
         const response = await fetch(apiURL);
-        const responseJSON = await response.json();
-        const lat = responseJSON["location"]["lat"];
-        const lon = responseJSON["location"]["lon"];
-        const coordinates = [lat, lon];
-        return coordinates
+        const weatherData = await response.json();
+        return weatherData;
     }catch(error){
         console.error(error)
         return alert("Hey are you sure you are not holding up your map upside down?")
@@ -36,136 +33,137 @@ inputField.addEventListener('keyup', async function(event) {
 
         const cityName = getCityName();
 
-    if (cityName !== ""){
-        const coordinates = await getCoordinates(cityName)
-        console.log("main", coordinates)
+        if (cityName !== ""){
+        const weatherData = await getWeatherData(cityName)
+        console.log("main", weatherData)
         
         // Make the api call to get the weather Data based on the City
-        fetch("http://api.weatherapi.com/v1/forecast.json?key=" + apiKey.key + "&q=" + cityName + "&days=7&aqi=no&alerts=no")
+        //fetch("http://api.weatherapi.com/v1/forecast.json?key=" + apiKey.key + "&q=" + cityName + "&days=7&aqi=no&alerts=no")
         // Transform the response in a readable javascript format
-        .then(response => response.json())
+        //.then(response => response.json())
         // final formatted data from the API call
-        .then(data => {
+        //.then(data => {
             // Check if data is received
             //console.log(data)
-
-
+        }
+    }
+})
             // check if the data is not giving back an error
-            if(data.error) {
+            //if(data.error) {
                 // stop the event from continuing the code if there is an error
                 //return alert("Hey are you sure you are not holding up your map upside down?")
-                console.log("check if code stops")
-            } else {
+                //console.log("check if code stops")
+            //} else {
                 // continue with the code if there are no errors
-                const container = document.querySelector(".container");
+                //const container = document.querySelector(".container");
                 // Remove existing children if there are any in the <element class="container">
-                while (container.lastChild) {
-                    container.removeChild(container.lastChild);
-                };
+                //while (container.lastChild) {
+                //    container.removeChild(container.lastChild);
+                //};
                 
                 // I also found this option to remove the children (but it removes all html content though)
-                container.innerHTML = ""
+                //container.innerHTML = ""
 
                 // container.children.forEach(child => {
                 //     container.remove(child);
                 // })
                 
-                // Display the location in the browser as "City, Country"
-                cityNameContainer.textContent = data.location.name + ", " + data.location.country;
+//                 // Display the location in the browser as "City, Country"
+//                 cityNameContainer.textContent = data.location.name + ", " + data.location.country;
 
-                // Create cards for each days (first 5 days) of the week.
-                // if I want to have 7 days, I just need to augment the number in the loop condition from 5 to 7
-                for(let i= 0; i < 5; i++) {
+//                 // Create cards for each days (first 5 days) of the week.
+//                 // if I want to have 7 days, I just need to augment the number in the loop condition from 5 to 7
+//                 for(let i= 0; i < 5; i++) {
 
-                    // get the container again for add the cards
-                    const div = document.querySelector('.container');
+//                     // get the container again for add the cards
+//                     const div = document.querySelector('.container');
 
-                    // d = date
-                    const d = new Date()
-                    // console.log(weekdays[(d.getDay() + i) % 7])
-                    // dow = dateOfWeek
-                    const dow = weekdays[(d.getDay() + i) % 7]
+//                     // d = date
+//                     const d = new Date()
+//                     // console.log(weekdays[(d.getDay() + i) % 7])
+//                     // dow = dateOfWeek
+//                     const dow = weekdays[(d.getDay() + i) % 7]
                 
-                    // Create the elements with Data
-                    const card = document.createElement('div');
-                    card.classList.add("card");
+//                     // Create the elements with Data
+//                     const card = document.createElement('div');
+//                     card.classList.add("card");
                     
-                    // if it's the first element (index === 0), add a second class: "main-card" for unique styling
-                    if (i === 0) card.classList.add("main-card");
+//                     // if it's the first element (index === 0), add a second class: "main-card" for unique styling
+//                     if (i === 0) card.classList.add("main-card");
                 
-                    div.appendChild(card);
+//                     div.appendChild(card);
                 
-                    const initialContentBeforeSlideAnimation = document.createElement('div');
-                    initialContentBeforeSlideAnimation.classList.add("imgBx");
-                    card.appendChild(initialContentBeforeSlideAnimation);
+//                     const initialContentBeforeSlideAnimation = document.createElement('div');
+//                     initialContentBeforeSlideAnimation.classList.add("imgBx");
+//                     card.appendChild(initialContentBeforeSlideAnimation);
                     
 
-                    const cardImg = document.createElement('img');
-                    cardImg.src = data.forecast.forecastday[i].day.condition.icon;
-                    cardImg.alt = "Icon describing the following weather: " + data.forecast.forecastday[i].day.condition.text;
-                    initialContentBeforeSlideAnimation.appendChild(cardImg);
+//                     const cardImg = document.createElement('img');
+//                     cardImg.src = data.forecast.forecastday[i].day.condition.icon;
+//                     cardImg.alt = "Icon describing the following weather: " + data.forecast.forecastday[i].day.condition.text;
+//                     initialContentBeforeSlideAnimation.appendChild(cardImg);
 
 
 
                     
-                    const contentBox = document.createElement("div");
-                    contentBox.classList.add("contentBx");
-                    card.appendChild(contentBox);
+//                     const contentBox = document.createElement("div");
+//                     contentBox.classList.add("contentBx");
+//                     card.appendChild(contentBox);
                 
-                    const dowContentBeforeSliderAnimation = document.createElement("h2");
-                    dowContentBeforeSliderAnimation.innerHTML = dow;
-                    contentBox.appendChild(dowContentBeforeSliderAnimation);
+//                     const dowContentBeforeSliderAnimation = document.createElement("h2");
+//                     dowContentBeforeSliderAnimation.innerHTML = dow;
+//                     contentBox.appendChild(dowContentBeforeSliderAnimation);
                 
-                    //console.log(data.forecast.forecastday[i].day.condition.text);
-                    const tempDescription = document.createElement("h4");
-                    tempDescription.innerHTML = data.forecast.forecastday[i].day.condition.text;
-                    contentBox.appendChild(tempDescription);
+//                     //console.log(data.forecast.forecastday[i].day.condition.text);
+//                     const tempDescription = document.createElement("h4");
+//                     tempDescription.innerHTML = data.forecast.forecastday[i].day.condition.text;
+//                     contentBox.appendChild(tempDescription);
                 
-                    const currentTempBox = document.createElement("div");
-                    currentTempBox.classList.add("color");
-                    contentBox.appendChild(currentTempBox)
+//                     const currentTempBox = document.createElement("div");
+//                     currentTempBox.classList.add("color");
+//                     contentBox.appendChild(currentTempBox)
                 
-                    const currentTempHeader = document.createElement("h3");
-                    currentTempHeader.innerHTML = "Temp:"
-                    currentTempBox.appendChild(currentTempHeader);
+//                     const currentTempHeader = document.createElement("h3");
+//                     currentTempHeader.innerHTML = "Temp:"
+//                     currentTempBox.appendChild(currentTempHeader);
                 
-                    const currentT = document.createElement("span");
-                    currentT.classList.add("current-temp");
+//                     const currentT = document.createElement("span");
+//                     currentT.classList.add("current-temp");
 
-                    // OLD structure from different API
-                    // let averageTemp = (result.daily.temperature_2m_min[i] + result.daily.temperature_2m_max[i]) / 2;
-                    // if(i === 0) averageTemp = result.current.temperature_2m;
+//                     // OLD structure from different API
+//                     // let averageTemp = (result.daily.temperature_2m_min[i] + result.daily.temperature_2m_max[i]) / 2;
+//                     // if(i === 0) averageTemp = result.current.temperature_2m;
 
-                // NEW structure:
-                currentT.innerHTML = data.forecast.forecastday[i].day.avgtemp_c + "°C";
-                currentTempBox.appendChild(currentT);
+//                 // NEW structure:
+//                 currentT.innerHTML = data.forecast.forecastday[i].day.avgtemp_c + "°C";
+//                 currentTempBox.appendChild(currentT);
             
-                const minMax = document.createElement("div");
-                minMax.classList.add("details");
-                contentBox.appendChild(minMax);
+//                 const minMax = document.createElement("div");
+//                 minMax.classList.add("details");
+//                 contentBox.appendChild(minMax);
             
-                const minMaxTempHeader = document.createElement("h3");
-                minMaxTempHeader.innerHTML = "More:"
-                minMax.appendChild(minMaxTempHeader);
+//                 const minMaxTempHeader = document.createElement("h3");
+//                 minMaxTempHeader.innerHTML = "More:"
+//                 minMax.appendChild(minMaxTempHeader);
             
-                const minT = document.createElement("span");
-                minT.classList.add("min-temp")
-                minT.innerHTML = data.forecast.forecastday[i].day.mintemp_c  + "°C";
-                minMax.appendChild(minT);
+//                 const minT = document.createElement("span");
+//                 minT.classList.add("min-temp")
+//                 minT.innerHTML = data.forecast.forecastday[i].day.mintemp_c  + "°C";
+//                 minMax.appendChild(minT);
             
-                const maxT = document.createElement("span");
-                maxT.classList.add("max-temp")
-                maxT.innerHTML = data.forecast.forecastday[i].day.maxtemp_c + "°C";
-                minMax.appendChild(maxT);
-                }
-            }
-        }).catch(err => {
-            //not working
-            // alert("Hey are you sure you are not holding up your map upside down?")
-        })
-    }
-    }
-})
+//                 const maxT = document.createElement("span");
+//                 maxT.classList.add("max-temp")
+//                 maxT.innerHTML = data.forecast.forecastday[i].day.maxtemp_c + "°C";
+//                 minMax.appendChild(maxT);
+//                 }
+//             }
+//         }).catch(err => {
+//             //not working
+//             // alert("Hey are you sure you are not holding up your map upside down?")
+//         })
+//     }
+//     }
+// })
 
 // add eventlistener to button
 button.addEventListener('click', function() {
