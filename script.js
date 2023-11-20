@@ -1,16 +1,22 @@
 import API from "./config.js";
 
-
 const button = document.querySelector('#submit-search');
 const inputField = document.querySelector('#cityName');
 const cityNameContainer = document.querySelector('.city-info')
 const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
+function getCityName(){
+    return inputField.value
+}
+
 
 // add eventlistener to input field
 inputField.addEventListener('keyup', function(event) {
     // get the current value after the user submitted the city name
-    const theNameOfTheCity = document.querySelector("#cityName").value;
+    // const cityName = document.querySelector("#cityName").value;
+
+    const cityName = getCityName();
+    
 
     // see if event listener is triggered
     console.log("Enter submission")
@@ -21,7 +27,7 @@ inputField.addEventListener('keyup', function(event) {
         // check if the value of the input field is not empty
     if (document.getElementById('cityName').value.trim()) {
         // Make the api call to get the weather Data based on the City
-        fetch("http://api.weatherapi.com/v1/forecast.json?key=" + API.key + "&q=" + theNameOfTheCity + "&days=7&aqi=no&alerts=no")
+        fetch("http://api.weatherapi.com/v1/forecast.json?key=" + API.key + "&q=" + cityName + "&days=7&aqi=no&alerts=no")
         // Transform the response in a readable javascript format
         .then(response => response.json())
         // final formatted data from the API call
@@ -149,9 +155,9 @@ inputField.addEventListener('keyup', function(event) {
 
 // add eventlistener to button
 button.addEventListener('click', function() {
-    const theNameOfTheCity = document.querySelector("#cityName").value;
+    const cityName = document.querySelector("#cityName").value;
     console.log("clicked")
-    fetch("http://api.weatherapi.com/v1/forecast.json?key=" + API.key + "&q=" + theNameOfTheCity + "&days=7&aqi=no&alerts=no")
+    fetch("http://api.weatherapi.com/v1/forecast.json?key=" + API.key + "&q=" + cityName + "&days=7&aqi=no&alerts=no")
     .then(response => response.json())
     .then(data => {
         console.log(data)
