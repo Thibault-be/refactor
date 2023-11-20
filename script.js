@@ -6,6 +6,9 @@ const cityNameContainer = document.querySelector('.city-info')
 const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const container = document.querySelector(".container");
 
+const today = new Date()
+const dayOfWeek = weekdays[(today.getDay() + i) %7]
+
 function getCityName(){
     return inputField.value
 }
@@ -34,8 +37,63 @@ function displayLocation(weatherData){
 }
 
 function createWeatherCards(weatherData){
+        // Create cards for each days (first 5 days) of the week.
+    // if I want to have 7 days, I just need to augment the number in the loop condition from 5 to 7
+    for(let i= 0; i < 5; i++) {
 
-}
+        // d = date
+        const d = new Date()
+        // console.log(weekdays[(d.getDay() + i) % 7])
+        // dow = dateOfWeek
+        const dow = weekdays[(d.getDay() + i) % 7]
+
+        // Create the elements with Data
+        const card = document.createElement('div');
+        card.classList.add("card");
+        
+        // if it's the first element (index === 0), add a second class: "main-card" for unique styling
+        if (i === 0) card.classList.add("main-card");
+
+        div.appendChild(card);
+
+        const initialContentBeforeSlideAnimation = document.createElement('div');
+        initialContentBeforeSlideAnimation.classList.add("imgBx");
+        card.appendChild(initialContentBeforeSlideAnimation);
+        
+
+        const cardImg = document.createElement('img');
+        cardImg.src = weatherData.forecast.forecastday[i].day.condition.icon;
+        cardImg.alt = "Icon describing the following weather: " + weatherData.forecast.forecastday[i].day.condition.text;
+        initialContentBeforeSlideAnimation.appendChild(cardImg);
+
+
+
+        
+        const contentBox = document.createElement("div");
+        contentBox.classList.add("contentBx");
+        card.appendChild(contentBox);
+
+        const dowContentBeforeSliderAnimation = document.createElement("h2");
+        dowContentBeforeSliderAnimation.innerHTML = dow;
+        contentBox.appendChild(dowContentBeforeSliderAnimation);
+
+        //console.log(data.forecast.forecastday[i].day.condition.text);
+        const tempDescription = document.createElement("h4");
+        tempDescription.innerHTML = weatherData.forecast.forecastday[i].day.condition.text;
+        contentBox.appendChild(tempDescription);
+
+        const currentTempBox = document.createElement("div");
+        currentTempBox.classList.add("color");
+        contentBox.appendChild(currentTempBox)
+
+        const currentTempHeader = document.createElement("h3");
+        currentTempHeader.innerHTML = "Temp:"
+        currentTempBox.appendChild(currentTempHeader);
+
+        const currentT = document.createElement("span");
+        currentT.classList.add("current-temp");
+
+}}
 
 
 // add eventlistener to input field
