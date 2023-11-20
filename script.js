@@ -1,4 +1,4 @@
-import API from "./config.js";
+import apiKey from "./config.js";
 
 const button = document.querySelector('#submit-search');
 const inputField = document.querySelector('#cityName');
@@ -9,9 +9,24 @@ function getCityName(){
     return inputField.value
 }
 
+async function getCoordinates(cityName){
+    const apiURL = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey.key}&q=${cityName}&days=7&aqi=no&alerts=no`
+    
+    try{
+        const response = await fetch(apiURL);
+        const coordinates = await response.json();
+        console.log("in function", coordinates)
+        return coordinates
+    }catch(error){
+        console.error(error)
+        return alert("Hey are you sure you are not holding up your map upside down?")
+    }
+
+} 
+
 
 // add eventlistener to input field
-inputField.addEventListener('keyup', function(event) {
+inputField.addEventListener('keyup', async function(event) {
     // get the current value after the user submitted the city name
     // const cityName = document.querySelector("#cityName").value;
 
@@ -20,22 +35,24 @@ inputField.addEventListener('keyup', function(event) {
 
         const cityName = getCityName();
 
-        // check if the value of the input field is not empty
     if (cityName !== ""){
+        const coordinates = await getCoordinates(cityName)
+        console.log("main", coordinates)
+        
         // Make the api call to get the weather Data based on the City
-        fetch("http://api.weatherapi.com/v1/forecast.json?key=" + API.key + "&q=" + cityName + "&days=7&aqi=no&alerts=no")
+        fetch("http://api.weatherapi.com/v1/forecast.json?key=" + apiKey.key + "&q=" + cityName + "&days=7&aqi=no&alerts=no")
         // Transform the response in a readable javascript format
         .then(response => response.json())
         // final formatted data from the API call
         .then(data => {
             // Check if data is received
-            console.log(data)
+            //console.log(data)
 
 
             // check if the data is not giving back an error
             if(data.error) {
                 // stop the event from continuing the code if there is an error
-                return alert("Hey are you sure you are not holding up your map upside down?")
+                //return alert("Hey are you sure you are not holding up your map upside down?")
                 console.log("check if code stops")
             } else {
                 // continue with the code if there are no errors
@@ -98,7 +115,7 @@ inputField.addEventListener('keyup', function(event) {
                     dowContentBeforeSliderAnimation.innerHTML = dow;
                     contentBox.appendChild(dowContentBeforeSliderAnimation);
                 
-                    console.log(data.forecast.forecastday[i].day.condition.text);
+                    //console.log(data.forecast.forecastday[i].day.condition.text);
                     const tempDescription = document.createElement("h4");
                     tempDescription.innerHTML = data.forecast.forecastday[i].day.condition.text;
                     contentBox.appendChild(tempDescription);
@@ -152,14 +169,14 @@ inputField.addEventListener('keyup', function(event) {
 // add eventlistener to button
 button.addEventListener('click', function() {
     const cityName = document.querySelector("#cityName").value;
-    console.log("clicked")
-    fetch("http://api.weatherapi.com/v1/forecast.json?key=" + API.key + "&q=" + cityName + "&days=7&aqi=no&alerts=no")
+    //console.log("clicked")
+    fetch("http://api.weatherapi.com/v1/forecast.json?key=" + apiKey.key + "&q=" + cityName + "&days=7&aqi=no&alerts=no")
     .then(response => response.json())
     .then(data => {
-        console.log(data)
+        //console.log(data)
         if(data.error) {
             return alert("Hey are you sure you are not holding up your map upside down?")
-            console.log("check if code stops")
+            //console.log("check if code stops")
         } else {
             const container = document.querySelector(".container");
             while (container.lastChild) {
@@ -204,7 +221,7 @@ button.addEventListener('click', function() {
                 cardHeader.innerHTML = dayOfTheWeek;
                 contentBox.appendChild(cardHeader);
             
-                console.log(data.forecast.forecastday[i].day.condition.text);
+                //console.log(data.forecast.forecastday[i].day.condition.text);
                 const tempDescription = document.createElement("h4");
                 tempDescription.innerHTML = data.forecast.forecastday[i].day.condition.text;
                 contentBox.appendChild(tempDescription);
