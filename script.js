@@ -10,12 +10,6 @@ const inputField = document.querySelector('#cityName');
 const cityNameContainer = document.querySelector('.city-info')
 const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-// In case I want to switch to a different format:
-const weekdays2 = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-// Check if weekdays are correctly displayed
-console.log(weekdays);
-// check if API is correctly imported
-console.log(API)
 
 // add eventlistener to input field
 inputField.addEventListener('keyup', function(event) {
