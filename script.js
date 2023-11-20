@@ -1,7 +1,3 @@
-// Check if script is read by the browser!
-console.log("script is running")
-// import data from different files
-//import WMO_CODES from "./wmo_codes.js";
 import API from "./config.js";
 
 
