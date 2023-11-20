@@ -4,13 +4,10 @@ console.log("script is running")
 //import WMO_CODES from "./wmo_codes.js";
 import API from "./config.js";
 
-// Getting my button element
+
 const button = document.querySelector('#submit-search');
-// Getting my input field element
 const inputField = document.querySelector('#cityName');
-//getting my container element
 const cityNameContainer = document.querySelector('.city-info')
-// Weekdays listed in the order used by the Date object in javascript
 const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 // In case I want to switch to a different format:
