@@ -16,10 +16,6 @@ inputField.addEventListener('keyup', function(event) {
     // const cityName = document.querySelector("#cityName").value;
 
     const cityName = getCityName();
-    
-
-    // see if event listener is triggered
-    console.log("Enter submission")
 
     // check if the keyup action is used on an Enter key
     if (event.code === "Enter") {
