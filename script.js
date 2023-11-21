@@ -7,11 +7,9 @@ const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frida
 const container = document.querySelector(".container");
 const today = new Date()
 
-function getCityName(){
-    return inputField.value
-}
+const getCityName = () =>{ return inputField.value }
 
-async function getWeatherData(cityName){
+const getWeatherData = async(cityName) => {
     const apiURL = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey.key}&q=${cityName}&days=7&aqi=no&alerts=no`
     
     try{
@@ -24,24 +22,21 @@ async function getWeatherData(cityName){
     };
 };
 
-function removeContainerChildren(){
-    container.replaceChildren();
-}
+const removeContainerChildren = () => {container.replaceChildren()};
 
-function displayLocation(weatherData){
+const displayLocation = (weatherData) => {
     const city = weatherData["location"]["name"];
     const country = weatherData["location"]["country"];
     cityNameContainer.textContent = `${city}, ${country}`
-}
+};
 
 const createElement = (elementType, className) => {
     const newDiv = document.createElement(elementType)
     newDiv.classList.add(className)
     return newDiv
-}
+};
 
-function createWeatherCards(weatherData){
-
+const createWeatherCards = (weatherData) => {
     for(let i= 0; i < 5; i++) {
         const d = new Date()
         const dayOfTheWeek = weekdays[(today.getDay() + i) %7]
@@ -116,4 +111,4 @@ inputField.addEventListener('keyup', async function(event) {
 
 button.addEventListener('click', function() {
     startWeatherApp();
-})
+});
