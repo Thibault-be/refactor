@@ -34,75 +34,69 @@ function displayLocation(weatherData){
     cityNameContainer.textContent = `${city}, ${country}`
 }
 
+const createElement = (elementType, className) => {
+    const newDiv = document.createElement(elementType)
+    newDiv.classList.add(className)
+    return newDiv
+}
+
 function createWeatherCards(weatherData){
 
     for(let i= 0; i < 5; i++) {
-
         const d = new Date()
         const dayOfTheWeek = weekdays[(today.getDay() + i) %7]
 
-        // Create the elements with Data
-        const card = document.createElement('div');
-        card.classList.add("card");
+        const card = createElement("div", "card");
         if (i === 0) card.classList.add("main-card");
 
         container.appendChild(card);
 
-        const initialContentBeforeSlideAnimation = document.createElement('div');
-        initialContentBeforeSlideAnimation.classList.add("imgBx");
+        const initialContentBeforeSlideAnimation = createElement("div", "imgBx")
         card.appendChild(initialContentBeforeSlideAnimation);
         
-
-        const cardImg = document.createElement('img');
+        const cardImg = createElement("img", "cardImg");
         cardImg.src = weatherData.forecast.forecastday[i].day.condition.icon;
         cardImg.alt = "Icon describing the following weather: " + weatherData.forecast.forecastday[i].day.condition.text;
         initialContentBeforeSlideAnimation.appendChild(cardImg);
        
-        const contentBox = document.createElement("div");
-        contentBox.classList.add("contentBx");
+        const contentBox = createElement("div", "contentBx");
         card.appendChild(contentBox);
 
-        const dowContentBeforeSliderAnimation = document.createElement("h2");
+        const dowContentBeforeSliderAnimation = createElement("h2", "title")
         dowContentBeforeSliderAnimation.innerHTML = dayOfTheWeek;
         contentBox.appendChild(dowContentBeforeSliderAnimation);
 
-        const tempDescription = document.createElement("h4");
+        const tempDescription = createElement("h4", "temp-description");
         tempDescription.innerHTML = weatherData.forecast.forecastday[i].day.condition.text;
         contentBox.appendChild(tempDescription);
 
-        const currentTempBox = document.createElement("div");
-        currentTempBox.classList.add("color");
+        const currentTempBox = createElement("div", "color")
         contentBox.appendChild(currentTempBox)
-        console.log(weatherData)
 
-        const currentTempHeader = document.createElement("h3");
+        const currentTempHeader = createElement("h3", "current-temp-header");
         currentTempHeader.innerHTML = "Temp:"
         currentTempBox.appendChild(currentTempHeader);
 
-        const currentTemp = document.createElement("span");
-        currentTemp.classList.add("current-temp");
-
+        const currentTemp = createElement("span","current-temp"); 
         currentTemp.innerHTML = weatherData.forecast.forecastday[i].day.avgtemp_c + "°C";
         currentTempBox.appendChild(currentTemp);
     
-        const minMaxTemperatures = document.createElement("div");
-        minMaxTemperatures.classList.add("details");
+        const minMaxTemperatures = createElement("div","details");
         contentBox.appendChild(minMaxTemperatures);
     
-        const minMaxTempHeader = document.createElement("h3");
+        const minMaxTempHeader = createElement("h3", "min-max-temp-header");
         minMaxTempHeader.innerHTML = "More:"
         minMaxTemperatures.appendChild(minMaxTempHeader);
     
-        const minTemp = document.createElement("span");
-        minTemp.classList.add("min-temp")
+        const minTemp = createElement("span","min-temp")
         minTemp.innerHTML = weatherData.forecast.forecastday[i].day.mintemp_c  + "°C";
         minMaxTemperatures.appendChild(minTemp);
     
-        const maxTemp = document.createElement("span");
-        maxTemp.classList.add("max-temp")
+        const maxTemp = createElement("span", "max-temp")
         maxTemp.innerHTML = weatherData.forecast.forecastday[i].day.maxtemp_c + "°C";
         minMaxTemperatures.appendChild(maxTemp);
-}}
+    };
+};
 
 const startWeatherApp = async() => {
     const cityName = getCityName();
@@ -112,7 +106,7 @@ const startWeatherApp = async() => {
         displayLocation(weatherData);
         createWeatherCards(weatherData);
     };
-}
+};
 
 inputField.addEventListener('keyup', async function(event) {
     if (event.code === "Enter") {
